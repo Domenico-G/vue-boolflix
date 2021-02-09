@@ -1,0 +1,19 @@
+/* common style */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/* app style */
+.container-film {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box-film {
+  border: 1px solid red;
+  width: 200px;
+  margin: 20px;
+  padding: 20px 10px;
+}
