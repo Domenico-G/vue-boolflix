@@ -14,11 +14,14 @@
     />
     <!-- css file -->
     <link rel="stylesheet" href="css/style.css" />
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="img/favicon.png" />
     <!-- meta -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Boolflix</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   </head>
   <body>
     <div id="app">
@@ -27,10 +30,18 @@
 
       <div class="container-film">
         <div v-for="movie in listMovie" class="box-film">
-          <p>{{movie.title}}</p>
-          <p>{{movie.original_title}}</p>
-          <p>{{movie.original_language}}</p>
-          <p>{{movie.vote_average}}</p>
+          <p v-if="movie.name == undefined ">{{movie.title}}</p>
+          <p v-else>{{movie.name}}</p>
+          <p v-if="movie.original_name == undefined ">
+            {{movie.original_title}}
+          </p>
+          <p v-else>{{movie.original_name}}</p>
+          <img :src="'img/flags/' + movie.original_language + '.svg'" alt="" />
+          <i class="fas fa-star" v-for="star in movie.vote_average"></i>
+          <i
+            class="far fa-star"
+            v-for="star in emptyStars(movie.vote_average) "
+          ></i>
         </div>
       </div>
     </div>
