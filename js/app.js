@@ -20,7 +20,6 @@ new Vue({
         ])
         .then(
           axios.spread(function (respM, respT) {
-            console.log(respT.data.results[0].title);
             //creo una lista di film e serieTV tramite query
             self.listMovie = respM.data.results.concat(respT.data.results);
             self.listMovie.forEach((item) => {
@@ -33,6 +32,10 @@ new Vue({
     // funzione per stelle vuote
     emptyStars: function (stars) {
       return 5 - stars;
+    },
+    // funzione per creare url dei poster
+    getPoster: function (url) {
+      return `background-image:url('https://image.tmdb.org/t/p/w342/${url}')`;
     },
   },
 });

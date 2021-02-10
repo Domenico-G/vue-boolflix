@@ -24,27 +24,43 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   </head>
   <body>
+    <!-- inizio applicazione Boolflix -->
     <div id="app">
-      <input type="text" v-model="titleMovie" @keyup.enter="getMovie()" />
-      <button @click="getMovie()">Cerca</button>
-
-      <div class="container-film">
-        <div v-for="movie in listMovie" class="box-film">
-          <p v-if="movie.name == undefined ">{{movie.title}}</p>
-          <p v-else>{{movie.name}}</p>
-          <p v-if="movie.original_name == undefined ">
-            {{movie.original_title}}
-          </p>
-          <p v-else>{{movie.original_name}}</p>
-          <img :src="'img/flags/' + movie.original_language + '.svg'" alt="" />
-          <i class="fas fa-star" v-for="star in movie.vote_average"></i>
-          <i
-            class="far fa-star"
-            v-for="star in emptyStars(movie.vote_average) "
-          ></i>
+      <!-- inizio header -->
+      <div class="header">
+        <input type="text" v-model="titleMovie" @keyup.enter="getMovie()" />
+        <button @click="getMovie()">Cerca</button>
+      </div>
+      <!-- fine header -->
+      <!-- inizio main-content -->
+      <div class="mein">
+        <div class="container-film">
+          <div
+            :style="getPoster(movie.poster_path)"
+            v-for="movie in listMovie"
+            class="box-film"
+          >
+            <p v-if="movie.name == undefined ">{{movie.title}}</p>
+            <p v-else>{{movie.name}}</p>
+            <p v-if="movie.original_name == undefined ">
+              {{movie.original_title}}
+            </p>
+            <p v-else>{{movie.original_name}}</p>
+            <img
+              :src="'img/flags/' + movie.original_language + '.svg'"
+              alt=""
+            />
+            <i class="fas fa-star" v-for="star in movie.vote_average"></i>
+            <i
+              class="far fa-star"
+              v-for="star in emptyStars(movie.vote_average) "
+            ></i>
+          </div>
         </div>
       </div>
+      <!-- fine main-content -->
     </div>
+    <!-- fine applicazione Boolflix -->
 
     <script src="js/app.js"></script>
   </body>
