@@ -87,28 +87,39 @@
         </div>
         <div class="container-film">
           <div
+            @mouseover="getCast(movie.id)"
+            class="box-film"
             :style="getPoster(movie.poster_path)"
             v-for="movie in listMovie"
-            class="box-film"
+            v-if="movie.poster_path !== null"
           >
-          <div class="info-film">
-            <p v-if="movie.name == undefined ">{{movie.title}}</p>
-            <p v-else>{{movie.name}}</p>
-            <p v-if="movie.original_name == undefined ">
-              {{movie.original_title}}
-            </p>
-            <p v-else>{{movie.original_name}}</p>
-            <img
-              :src="'img/flags/' + movie.original_language + '.svg'"
-              alt=""
-            />
-            <i class="fas fa-star" v-for="star in movie.vote_average"></i>
-            <i
-              class="far fa-star"
-              v-for="star in emptyStars(movie.vote_average) "
-            ></i>
+            <div class="info-film">
+              <p v-if="movie.name == undefined ">TITOLO: {{movie.title}}</p>
+              <p v-else>NOME: {{movie.name}}</p>
+              <p v-if="movie.original_name == undefined ">
+                TITOLO ORIGINALE: {{movie.original_title}}
+              </p>
+              <p v-else>NOME ORIGINALE: {{movie.original_name}}</p>
+              <div class="lang-movie">
+                LINGUA:
+                <img
+                  :src="'img/flags/' + movie.original_language + '.svg'"
+                  alt=""
+                />
+              </div>
+              <p>DESCRIZIONE: {{movie.overview}}</p>
 
-          </div>
+              <i
+                style="color: red"
+                class="fas fa-star"
+                v-for="star in movie.vote_average"
+              ></i>
+              <i
+                style="color: white"
+                class="fas fa-star"
+                v-for="star in emptyStars(movie.vote_average) "
+              ></i>
+            </div>
           </div>
         </div>
       </div>
