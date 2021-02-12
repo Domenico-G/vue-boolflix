@@ -1,11 +1,43 @@
 new Vue({
   el: "#app",
   data: {
+    listGenre: [],
     listaCast: [],
     listMovie: [],
     titleMovie: "",
   },
-
+  mounted() {
+    axios
+      .all([
+        axios.get("https://api.themoviedb.org/3/genre/movie/list", {
+          params: {
+            api_key: "a125714ea457f065269757ad3c9d6db9",
+          },
+        }),
+        axios.get("https://api.themoviedb.org/3/genre/tv/list", {
+          params: {
+            api_key: "a125714ea457f065269757ad3c9d6db9",
+          },
+        }),
+      ])
+      .then(
+        axios.spread((respMovie, respTv) => {
+          //creo una lista dei generi di film e serieTV
+          this.listGenre = respTv.data.genres;
+          respMovie.data.genres.forEach((el) => {
+            let flag = true;
+            for (let i = 0; i < this.listGenre.length; i++) {
+              if (el.id === this.listGenre[i].id) {
+                this.flag = false;
+              }
+            }
+            if (flag) {
+              this.listGenre.push(el);
+            }
+          });
+        })
+      );
+  },
   methods: {
     getMovie: function () {
       axios
@@ -48,18 +80,28 @@ new Vue({
       return `background-image:url('https://image.tmdb.org/t/p/original${url}')`;
     },
 
-    // funzione per cercare gli attori del film
-    async getCast(el) {
+    // funzione per mostrare gli attori del film
+    getCast: function (el) {
       axios
         .get(
-          `https://api.themoviedb.org/3/movie/${el.id}/credits?api_key=a125714ea457f065269757ad3c9d6db9`
+          `https://api.themoviedb.org/3/movie/${el}/credits?api_key=a125714ea457f065269757ad3c9d6db9`
         )
-        .then(function (credits) {
-          console.log(credits);
-        })
-        .catch((error) => {
-          console.log(error);
+        .then((credits) => {
+          this.listaCast = [];
+          for (let i = 0; i < 5; i++) {
+            this.listaCast.push(credits.data.cast[i].name);
+          }
         });
+    },
+    // funzione per cercare gli attori del film
+    getGenre: function (genre) {
+      const arr = [];
+      this.listGenre.forEach((el) => {
+        for (let i = 0; i < genre.length; i++) {
+          if (genre[i] === el.id) arr.push(el.name);
+        }
+      });
+      return arr;
     },
   },
 });

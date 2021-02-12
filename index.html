@@ -62,7 +62,7 @@
               <input
                 type="text"
                 v-model="titleMovie"
-                @keyup.enter="getMovie()"
+                @keyup="getMovie()"
               />
             </li>
             <li><i class="fas fa-search"></i></li>
@@ -94,12 +94,18 @@
             v-if="movie.poster_path !== null"
           >
             <div class="info-film">
-              <p v-if="movie.name == undefined ">TITOLO: {{movie.title}}</p>
-              <p v-else>NOME: {{movie.name}}</p>
-              <p v-if="movie.original_name == undefined ">
+              <p v-if="movie.title">TITOLO: {{movie.title}}</p>
+              <p v-if="movie.name">NOME: {{movie.name}}</p>
+              <p
+                v-if="movie.original_name == undefined && movie.original_title !=  movie.title "
+              >
                 TITOLO ORIGINALE: {{movie.original_title}}
               </p>
-              <p v-else>NOME ORIGINALE: {{movie.original_name}}</p>
+              <p
+                v-if="movie.original_name && movie.original_name != movie.name "
+              >
+                NOME ORIGINALE: {{movie.original_name}}
+              </p>
               <div class="lang-movie">
                 LINGUA:
                 <img
@@ -119,6 +125,12 @@
                 class="fas fa-star"
                 v-for="star in emptyStars(movie.vote_average) "
               ></i>
+              <div class="actor">
+                <p v-for="attori in listaCast">{{attori}}</p>
+              </div>
+              <div class="genre">
+                <p v-for="genre in getGenre(movie.genre_ids)">{{genre}}</p>
+              </div>
             </div>
           </div>
         </div>

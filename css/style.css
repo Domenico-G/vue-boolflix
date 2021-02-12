@@ -119,59 +119,29 @@ ul li {
   text-transform: uppercase;
 }
 
-.info-film {
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  padding: 20px 10px;
-  color: #fff;
-  font-size: 5px;
-  font-weight: 400;
-  overflow: hidden;
-}
-
-.box-film:hover .info-film {
-  opacity: 1;
-  background: #000;
-}
-
-.lang-movie {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.lang-movie img {
-  width: 100%;
-}
-
 .container-film {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   padding-bottom: 10px;
   margin: 0 20px;
-  
 }
 
 .container-film::-webkit-scrollbar {
   background: #333333;
   width: 1px;
   border-radius: 10px;
-
 }
 
 .container-film::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
 
 .container-film::-webkit-scrollbar-thumb {
   background: #cccccc;
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 .box-film {
@@ -184,10 +154,38 @@ ul li {
   margin: 0 5px;
 }
 
-i {
-  color: yellow;
+.box-film:hover .info-film {
+  opacity: 1;
+  background: #000;
 }
 
-img {
-  /* width: 50px; */
+.info-film {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px 10px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 400;
+  overflow: hidden;
+}
+
+.lang-movie {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.lang-movie img {
+  width: 100%;
+}
+
+.actor {
+  display: flex;
+}
+
+.genre {
+  display: flex;
 }
