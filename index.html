@@ -5,12 +5,25 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- Axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <!-- bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
     <!-- font awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
       integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
       crossorigin="anonymous"
+    />
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
     />
     <!-- css file -->
     <link rel="stylesheet" href="css/style.css" />
@@ -28,18 +41,57 @@
     <div id="app">
       <!-- inizio header -->
       <div class="header">
-        <input type="text" v-model="titleMovie" @keyup.enter="getMovie()" />
-        <button @click="getMovie()">Cerca</button>
+        <div class="container-xxl">
+          <!-- sezione Logo/Menu -->
+          <div class="menu">
+            <ul class="menu">
+              <li class="logo">
+                <img src="img/logo.png" alt="Logo Netflix" />
+              </li>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Serie Tv</a></li>
+              <li><a href="#">Film</a></li>
+              <li><a href="#">Nuovi e popolari</a></li>
+              <li><a href="#">La mia lista</a></li>
+            </ul>
+          </div>
+          <!-- fine sezione Logo/Menu -->
+          <!-- sezione account -->
+          <ul class="account">
+            <li class="search">
+              <input
+                type="text"
+                v-model="titleMovie"
+                @keyup.enter="getMovie()"
+              />
+            </li>
+            <li><i class="fas fa-search"></i></li>
+            <li>BAMBINI</li>
+            <li><i class="fas fa-gift"></i></li>
+            <li><i class="fas fa-bell"></i></li>
+            <li>
+              <div class="img-account">
+                <img src="img/avatar.jpg" alt="Immagine Account" />
+              </div>
+            </li>
+            <li><i class="fas fa-sort-down"></i></li>
+          </ul>
+          <!-- fine sezione account -->
+        </div>
       </div>
       <!-- fine header -->
       <!-- inizio main-content -->
       <div class="mein">
+        <div class="section-title">
+          <h1>originali netflix</h1>
+        </div>
         <div class="container-film">
           <div
             :style="getPoster(movie.poster_path)"
             v-for="movie in listMovie"
             class="box-film"
           >
+          <div class="info-film">
             <p v-if="movie.name == undefined ">{{movie.title}}</p>
             <p v-else>{{movie.name}}</p>
             <p v-if="movie.original_name == undefined ">
@@ -55,6 +107,8 @@
               class="far fa-star"
               v-for="star in emptyStars(movie.vote_average) "
             ></i>
+
+          </div>
           </div>
         </div>
       </div>
