@@ -1,10 +1,13 @@
 new Vue({
   el: "#app",
   data: {
-    listGenre: [],
+    listTrending: [],
+    listAllGenre: [],
     listaCast: [],
     listMovie: [],
     titleMovie: "",
+    indexAndList: null,
+    searchFlag: true,
   },
   mounted() {
     axios
@@ -19,20 +22,32 @@ new Vue({
             api_key: "a125714ea457f065269757ad3c9d6db9",
           },
         }),
+        axios.get("https://api.themoviedb.org/3/trending/all/week", {
+          params: {
+            api_key: "a125714ea457f065269757ad3c9d6db9",
+          },
+        }),
       ])
       .then(
-        axios.spread((respMovie, respTv) => {
+        axios.spread((respMovie, respTv, trendingMedia) => {
+          // creo una lista dei media più popolari
+          this.listTrending = trendingMedia.data.results;
+          // cambio il voto del film da decimale in intero
+          this.listTrending.forEach((item) => {
+            item.vote_average = Math.ceil(item.vote_average / 2);
+          });
+          this.indexAndList = trendingMedia.data.results[0];
           //creo una lista dei generi di film e serieTV
-          this.listGenre = respTv.data.genres;
+          this.listAllGenre = respTv.data.genres;
           respMovie.data.genres.forEach((el) => {
             let flag = true;
-            for (let i = 0; i < this.listGenre.length; i++) {
-              if (el.id === this.listGenre[i].id) {
-                this.flag = false;
+            for (let i = 0; i < this.listAllGenre.length; i++) {
+              if (el.id === this.listAllGenre[i].id) {
+                flag = false;
               }
             }
             if (flag) {
-              this.listGenre.push(el);
+              this.listAllGenre.push(el);
             }
           });
         })
@@ -91,17 +106,31 @@ new Vue({
           for (let i = 0; i < 5; i++) {
             this.listaCast.push(credits.data.cast[i].name);
           }
-        });
+        })
+        .catch((error) => {});
     },
     // funzione per cercare gli attori del film
     getGenre: function (genre) {
       const arr = [];
-      this.listGenre.forEach((el) => {
+      this.listAllGenre.forEach((el) => {
         for (let i = 0; i < genre.length; i++) {
-          if (genre[i] === el.id) arr.push(el.name);
+          if (genre[i] === el.id) {
+            arr.push(el.name);
+          }
         }
       });
       return arr;
+    },
+    // funzione per selezionare informazione di un media
+    getIndex: function (index, list) {
+      this.indexAndList = list[index];
+    },
+    // funzione per la ricerca film
+    searchMovie: function () {
+      this.searchFlag = false;
+    },
+    searchMovie2: function () {
+      this.searchFlag = true;
     },
   },
 });

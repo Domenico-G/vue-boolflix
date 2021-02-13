@@ -28,21 +28,24 @@ ul li {
 }
 
 #app {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background: #1b1b1b;
 }
 
 /* header style */
 
-.container-xxl {
+.header {
+  width: 100%;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.header {
-  background: #1b1b1b;
+  background: linear-gradient(
+    180deg,
+    rgba(27, 27, 27, 1) 32%,
+    rgba(20, 41, 82, 0) 100%
+  );
   color: #fff;
 }
 
@@ -110,13 +113,29 @@ ul li {
   width: 100%;
 }
 
+/* style sezione jumbotron */
+
+.jumbotron {
+  padding: 100px 0;
+  height: 700px;
+  width: 100%;
+  padding: 200px 50px;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size:contain;
+  color: #fff;
+  font-weight: 500;
+}
+
+.description {
+  width: 500px; 
+}
+
 /* fine header style */
 
 /* inizio main */
-
-.mein .section-title h1 {
-  color: #fff;
-  text-transform: uppercase;
+.mein {
+  padding: 20px 0;
 }
 
 .container-film {
@@ -124,7 +143,7 @@ ul li {
   flex-wrap: nowrap;
   overflow-x: auto;
   padding-bottom: 10px;
-  margin: 0 20px;
+  margin: 0 10px;
 }
 
 .container-film::-webkit-scrollbar {
@@ -144,6 +163,16 @@ ul li {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
+.section-title {
+  margin: 0 20px;
+}
+
+.section-title h1 {
+  font-size: 30px;
+  color: #fff;
+  text-transform: uppercas
+}
+
 .box-film {
   flex: 0 0 auto;
   width: 300px;
@@ -152,22 +181,6 @@ ul li {
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0 5px;
-}
-
-.box-film:hover .info-film {
-  opacity: 1;
-  background: #000;
-}
-
-.info-film {
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  padding: 20px 10px;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 400;
-  overflow: hidden;
 }
 
 .lang-movie {
@@ -180,6 +193,7 @@ ul li {
 
 .lang-movie img {
   width: 100%;
+  margin-left: 10px;
 }
 
 .actor {
