@@ -33,9 +33,7 @@ new Vue({
           // creo una lista dei media più popolari
           this.listTrending = trendingMedia.data.results;
           // cambio il voto del film da decimale in intero
-          this.listTrending.forEach((item) => {
-            item.vote_average = Math.ceil(item.vote_average / 2);
-          });
+          this.voteInteger(this.listTrending);
           this.indexAndList = trendingMedia.data.results[0];
           //creo una lista dei generi di film e serieTV
           this.listAllGenre = respTv.data.genres;
@@ -74,14 +72,14 @@ new Vue({
           axios.spread((respMovie, respTv) => {
             //creo una lista di film e serieTV tramite query
             this.listMovie = respMovie.data.results.concat(respTv.data.results);
-            this.voteInteger();
+            this.voteInteger(this.listMovie);
           })
         );
     },
 
     // funzione per cambiare il voto dei film da decimale in intero
-    voteInteger: function () {
-      this.listMovie.forEach((item) => {
+    voteInteger: function (list) {
+      list.forEach((item) => {
         item.vote_average = Math.ceil(item.vote_average / 2);
       });
     },
@@ -106,8 +104,7 @@ new Vue({
           for (let i = 0; i < 5; i++) {
             this.listaCast.push(credits.data.cast[i].name);
           }
-        })
-        .catch((error) => {});
+        });
     },
     // funzione per cercare gli attori del film
     getGenre: function (genre) {
@@ -124,13 +121,6 @@ new Vue({
     // funzione per selezionare informazione di un media
     getIndex: function (index, list) {
       this.indexAndList = list[index];
-    },
-    // funzione per la ricerca film
-    searchMovie: function () {
-      this.searchFlag = false;
-    },
-    searchMovie2: function () {
-      this.searchFlag = true;
     },
   },
 });

@@ -47,7 +47,7 @@
             <li class="logo">
               <img src="img/logo.png" alt="Logo Netflix" />
             </li>
-            <li><a @click="searchMovie2()" href="#">Home</a></li>
+            <li><a href="#">Home</a></li>
             <li><a href="#">Serie Tv</a></li>
             <li><a href="#">Film</a></li>
             <li><a href="#">Nuovi e popolari</a></li>
@@ -58,9 +58,9 @@
         <!-- sezione account -->
         <ul class="account">
           <li class="search">
-            <input type="text" v-model="titleMovie" @keyup="getMovie()"/>
+            <input type="text" v-model="titleMovie" @keyup="getMovie()" />
           </li>
-          <li><i class="fas fa-search"  @click="searchMovie()" ></i></li>
+          <li><i class="fas fa-search"></i></li>
           <li>BAMBINI</li>
           <li><i class="fas fa-gift"></i></li>
           <li><i class="fas fa-bell"></i></li>
@@ -75,71 +75,80 @@
       </div>
       <!-- fine header -->
       <!-- inizio sezione jumbotron -->
-      <div v-if="searchFlag" class="jumbotron" :style="getPoster(indexAndList.backdrop_path)">
-        <h1 v-if="indexAndList.title">TITOLO: {{indexAndList.title}}</h1>
-        <h1 v-if="indexAndList.name">NOME: {{indexAndList.name}}</h1>
-        <h1
-          v-if="indexAndList.original_name == undefined && indexAndList.original_title !=  indexAndList.title "
-        >
-          TITOLO ORIGINALE: {{indexAndList.original_title}}
-        </h1>
-        <h1
-          v-if="indexAndList.original_name && indexAndList.original_name != indexAndList.name "
-        >
-          NOME ORIGINALE: {{indexAndList.original_name}}
-        </h1>
-        <div class="lang-movie">
-          LINGUA:
-          <img
-            :src="'img/flags/' + indexAndList.original_language + '.svg'"
-            alt=""
-          />
-        </div>
-        <p class="description">DESCRIZIONE: {{indexAndList.overview}}</p>
-        <i
-          style="color: red"
-          class="fas fa-star"
-          v-for="star in indexAndList.vote_average"
-        ></i>
-        <i
-          style="color: white"
-          class="fas fa-star"
-          v-for="star in emptyStars(indexAndList.vote_average) "
-        ></i>
+      <div class="jumbotron" :style="getPoster(indexAndList.backdrop_path)">
+        <div class="layer">
+          <h1 v-if="indexAndList.title">TITOLO: {{indexAndList.title}}</h1>
+          <h1 v-if="indexAndList.name">NOME: {{indexAndList.name}}</h1>
+          <h1
+            v-if="indexAndList.original_name == undefined && indexAndList.original_title !=  indexAndList.title "
+          >
+            TITOLO ORIGINALE: {{indexAndList.original_title}}
+          </h1>
+          <h1
+            v-if="indexAndList.original_name && indexAndList.original_name != indexAndList.name "
+          >
+            NOME ORIGINALE: {{indexAndList.original_name}}
+          </h1>
+          <div class="lang-movie">
+            LINGUA:
+            <img
+              :src="'img/flags/' + indexAndList.original_language + '.svg'"
+              alt=""
+            />
+          </div>
+          <p class="description">DESCRIZIONE: {{indexAndList.overview}}</p>
+          <i
+            style="color: red"
+            class="fas fa-star"
+            v-for="star in indexAndList.vote_average"
+          ></i>
+          <i
+            style="color: white"
+            class="fas fa-star"
+            v-for="star in emptyStars(indexAndList.vote_average) "
+          ></i>
 
-        <div class="actor">
-          <p v-for="attori in listaCast">{{attori}}</p>
-        </div>
-        <div class="genre">
-          <p v-for="genre in getGenre(indexAndList.genre_ids)">
-            Genere {{genre}},
-          </p>
+          <div class="actor">
+            <p v-for="attori in listaCast">{{attori}}</p>
+          </div>
+          <div class="genre">
+            <p v-for="genre in getGenre(indexAndList.genre_ids)">
+              Genere {{genre}},
+            </p>
+          </div>
         </div>
       </div>
       <!-- fine sezione jumbotron -->
       <!-- inizio main-content -->
       <div class="mein">
-        <div class="section-title">
-          <h1>I più visti</h1>
-        </div>
-        <div v-if="searchFlag" class="container-film">
-          <div
-            class="box-film"
-            :style="getPoster(trend.poster_path)"
-            v-for="(trend, index) in listTrending"
-            v-if="trend.poster_path !== null"
-            @click="getIndex(index, listTrending), getCast(trend.id)"
-          ></div>
+        <div class="container-film">
+          <div class="section-title">
+            <h1>I più visti</h1>
+          </div>
+          <div class="row-film">
+            <div
+              class="box-film"
+              :style="getPoster(trend.poster_path)"
+              v-for="(trend, index) in listTrending"
+              v-if="trend.poster_path !== null"
+              @click="getIndex(index, listTrending), getCast(trend.id)"
+            ></div>
+          </div>
         </div>
         <div class="container-film">
-          <div
-            @mouseover="getCast(movie.id)"
-            class="box-film"
-            :style="getPoster(movie.poster_path)"
-            v-for="(movie, index) in listMovie"
-            v-if="movie.poster_path !== null"
-            @click="getIndex(index, listMovie)"
-          ></div>
+          <div class="section-title-search">
+            <h1>cerca</h1>
+          </div>
+          <div class="row-film">
+            <div
+              @mouseover="getCast(movie.id)"
+              class="box-film"
+              :style="getPoster(movie.poster_path)"
+              v-for="(movie, index) in listMovie"
+              v-if="movie.poster_path !== null"
+              @click="getIndex(index, listMovie)"
+            ></div>
+          </div>
         </div>
       </div>
       <!-- fine main-content -->
